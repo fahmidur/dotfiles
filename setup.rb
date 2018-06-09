@@ -39,7 +39,7 @@ class GitTrackedRepo
   end
 
   def git_run(str)
-    command = "#{@git_com} --git-dir=#{@path}/.git #{str}"
+    command = "cd #{@path} && #{@git_com} #{str}"
     puts "git_run. command: #{command}"
     system(command)
   end
