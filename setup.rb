@@ -15,11 +15,10 @@ class GitTrackedRepo
   def initialize(repo, path)
     @repo = repo 
     @path = path
-
+    git_configure
   end
 
   def sync!
-    git_install
     if Dir.exists?(@path)
       sync_again!
     else
@@ -34,24 +33,37 @@ class GitTrackedRepo
   end
 
   def sync_again!
-    git_com_at_path("reset --hard origin/master")
-    git_com_at_path("git pull")
+    git_run("reset --hard origin/master")
+    git_run("clean -fd")
+    git_run("pull")
   end
 
-  def git_com_at_path(str)
-    `git --git-dir=#{@path}/.git #{str}`
+  def git_run(str)
+    command = "#{@git_com} --git-dir=#{@path}/.git #{str}"
+    puts "git_run. command: #{command}"
+    system(command)
+  end
+
+  def git_configure
+    @git_com = git_install
+    unless @git_com
+      raise "Program git could not be found"
+    end
+    puts "--- @git_com = #{@git_com}"
   end
 
   def git_install
     if com?("git")
       puts "git already installed"
-      return
+      return `which git`.chomp
     end
     if com?("apt-get")
       puts "--- installing git via apt-get"
       `system apt-get install git`
+      return `which git`.chomp
     else
       puts "--- FATAL. you must install git"
+      return nil
     end
   end
 
