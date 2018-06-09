@@ -49,7 +49,7 @@ class GitTrackedRepo
     unless @git_com
       raise "Program git could not be found"
     end
-    puts "--- @git_com = #{@git_com}"
+    puts "--- git_com = #{@git_com}"
   end
 
   def git_install
