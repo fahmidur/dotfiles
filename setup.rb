@@ -19,7 +19,7 @@ class GitTrackedRepo
   end
 
   def sync!
-    if Dir.exists?(@path)
+    if git_tracked?(@path)
       sync_again!
     else
       sync_first!
@@ -36,6 +36,18 @@ class GitTrackedRepo
     git_run("reset --hard origin/master")
     git_run("clean -fd")
     git_run("pull")
+  end
+
+  def git_tracked?(path)
+    path = Pathname.new(path)
+    unless Dir.exists?(path)
+      return false
+    end
+    git_dir = path + '.git'
+    unless Dir.exists?(git_dir)
+      return false
+    end
+    return true
   end
 
   def git_run(str)
