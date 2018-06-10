@@ -107,13 +107,31 @@ class FileTree
 
       npath_base = File.basename(npath)
       next if npath_base == '.keep'
-      puts "#{path} ==> #{npath}"
+      print "#{npath} ==> #{path}"
 
       if File.exists?(npath)
+        npath_lstat = File.lstat(npath)
+        if npath_lstat.symlink? && (npath_target = File.readlink(npath)) && (npath_target == path)
+          puts " --- SKIPPED. Already Symlinked"
+          next
+        else
+          puts
+          backup(npath)
+        end
+      else
+        puts
       end
 
+      FileUtils.ln_sf(path, npath)
     end
   end
+
+  def backup(path)
+    return unless File.exists?(path)
+    bpath = path + ".bck_#{Time.now.to_i}"
+    FileUtils.mv(path, bpath)
+  end
+
 end
 
 #--- Main
