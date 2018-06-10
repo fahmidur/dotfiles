@@ -97,7 +97,21 @@ class FileTree
 
   def sync!
     Find.find(@path.to_s) do |path|
-      puts "--- path = #{path}"
+      next if File.directory?(path)
+
+      npath = path.clone.to_s
+      npath = npath.gsub(/^#{@path}\//, '')
+      npath = npath.gsub(/^__HOME__/, $USER_HOME_PATH.to_s)
+      npath = npath.gsub(/^__ROOT__/, '/')
+      npath = npath.gsub(/\/+/, '/')
+
+      npath_base = File.basename(npath)
+      next if npath_base == '.keep'
+      puts "#{path} ==> #{npath}"
+
+      if File.exists?(npath)
+      end
+
     end
   end
 end
