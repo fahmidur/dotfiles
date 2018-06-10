@@ -122,6 +122,7 @@ class FileTree
         puts
       end
 
+      FileUtils.mkdir_p(File.dirname(npath))
       FileUtils.ln_sf(path, npath)
     end
   end
