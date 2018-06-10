@@ -2,7 +2,6 @@
 
 require 'fileutils'
 require 'pathname'
-require 'pry'
 
 $USER_HOME_PATH = Pathname.new(ENV['HOME'])
 $DOTFILES_PATH = $USER_HOME_PATH + 'dotfiles'
@@ -144,3 +143,4 @@ ft = FileTree.new($DOTFILES_PATH)
 ft.sync!
 
 #--- --- Setup VIM
+FileUtils.mkdir_p( ($USER_HOME_PATH + '.vim' + 'backupdir') )
