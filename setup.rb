@@ -33,7 +33,7 @@ class GitTrackedRepo
   end
 
   def sync_again!
-    git_run("reset --hard origin/master")
+    git_run("reset --hard origin/ft-setup-script")
     git_run("clean -fd")
     git_run("pull")
   end
