@@ -86,12 +86,28 @@ class GitTrackedRepo
 
 end
 
-def setup_dotfiles
-  FileUtils.mkdir_p($DOTFILES_PATH)
-  `git clone #{$DOTFILES_REPO} #{$DOTFILES_PATH}`
+class FileTree
+  require 'find'
+  require 'pathname'
+
+  def initialize(path)
+    path = Pathname.new(path)
+    @path = path + 'tree'
+  end
+
+  def sync!
+    Find.find(@path.to_s) do |path|
+      puts "--- path = #{path}"
+    end
+  end
 end
 
 #--- Main
-
 dot_gtr = GitTrackedRepo.new($DOTFILES_REPO, $DOTFILES_PATH)
 dot_gtr.sync!
+
+#--- --- Safely symlink files
+ft = FileTree.new($DOTFILES_PATH)
+ft.sync!
+
+#--- --- Setup VIM
