@@ -156,4 +156,3 @@ ft = FileTree.new($DOTFILES_PATH)
 ft.sync!
 
 #--- --- Setup VIM
-FileUtils.mkdir_p( ($USER_HOME_PATH + '.vim' + 'backupdir') )
