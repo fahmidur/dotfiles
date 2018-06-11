@@ -97,6 +97,7 @@ class FileTree
   end
 
   def sync!
+    puts "\n\n=== SYNC! Syncing ==="
     Find.find(@path.to_s) do |path|
       next if File.directory?(path)
 
