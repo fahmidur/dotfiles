@@ -106,9 +106,15 @@ class FileTree
       npath = npath.gsub(/^__ROOT__/, '/')
       npath = npath.gsub(/\/+/, '/')
 
+      npath_dirname = File.dirname(npath)
       npath_base = File.basename(npath)
-      next if npath_base == '.keep'
+
       print "#{npath} ==> #{path}"
+      if npath_base == '.keep'
+        puts " --- Only making directory ---"
+        FileUtils.mkdir_p(npath_dirname)
+        next
+      end
 
       if File.exists?(npath)
         npath_lstat = File.lstat(npath)
@@ -123,7 +129,7 @@ class FileTree
         puts
       end
 
-      FileUtils.mkdir_p(File.dirname(npath))
+      FileUtils.mkdir_p(npath_dirname)
       FileUtils.ln_sf(path, npath)
     end
   end
