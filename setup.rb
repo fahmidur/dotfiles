@@ -159,6 +159,3 @@ dot_gtr.sync!
 #--- --- Safely symlink files
 ft = FileTree.new($DOTFILES_PATH)
 ft.sync!
-
-#--- --- Setup VIM
-
