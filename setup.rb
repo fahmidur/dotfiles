@@ -112,8 +112,10 @@ class FileTree
 
       print "#{npath} ==> #{path}"
       if npath_base == '.keep'
-        puts " --- Only making directory ---"
-        FileUtils.mkdir_p(npath_dirname)
+        unless File.directory?(npath_dirname)
+          puts " --- Making directory"
+          FileUtils.mkdir_p(npath_dirname)
+        end
         next
       end
 
