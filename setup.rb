@@ -147,6 +147,11 @@ class FileTree
 
 end
 
+def run_command(str)
+  puts "run_command: #{str}"
+  system(str)
+end
+
 #--- Main
 dot_gtr = GitTrackedRepo.new($DOTFILES_REPO, $DOTFILES_PATH)
 dot_gtr.sync!
@@ -156,3 +161,4 @@ ft = FileTree.new($DOTFILES_PATH)
 ft.sync!
 
 #--- --- Setup VIM
+
