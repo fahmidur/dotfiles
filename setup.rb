@@ -33,10 +33,8 @@ class GitTrackedRepo
 
   def sync_again!
     git_run("clean -fd")
-    git_run("reset --hard")
     git_run("fetch --all")
-    git_run("checkout ft-setup-script")
-    git_run("pull")
+    git_run("reset --hard origin/master")
   end
 
   def git_tracked?(path)
@@ -52,7 +50,7 @@ class GitTrackedRepo
   end
 
   def git_run(str)
-    command = "cd #{@path} && #{@git_com} #{str}"
+    command = "#{@git_com} --work-tree='#{@path}' --git-dir='#{@path}' #{str}"
     puts "git_run. command: #{command}"
     system(command)
   end
