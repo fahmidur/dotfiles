@@ -32,9 +32,10 @@ class GitTrackedRepo
   end
 
   def sync_again!
-    git_run("reset --hard origin/ft-setup-script")
     git_run("clean -fd")
-    git_run("pull")
+    git_run("reset --hard")
+    git_run("fetch --all")
+    git_run("checkout ft-setup-script")
   end
 
   def git_tracked?(path)
