@@ -36,6 +36,7 @@ class GitTrackedRepo
     git_run("reset --hard")
     git_run("fetch --all")
     git_run("checkout ft-setup-script")
+    git_run("pull")
   end
 
   def git_tracked?(path)
