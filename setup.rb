@@ -112,7 +112,9 @@ class FileTree
 
       print "#{npath} ==> #{path}"
       if npath_base == '.keep'
-        unless File.directory?(npath_dirname)
+        if File.directory?(npath_dirname)
+          puts " --- SKIPPED. Directory already exists"
+        else
           puts " --- Making directory"
           FileUtils.mkdir_p(npath_dirname)
         end
