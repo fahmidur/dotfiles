@@ -5,6 +5,7 @@ require 'pathname'
 
 $USER_HOME_PATH = Pathname.new(ENV['HOME'])
 $DOTFILES_PATH = $USER_HOME_PATH + 'dotfiles'
+$DOTFILES_TREE_META_PATH = $USER_HOME_PATH + '.dotfiles_tree_meta.json'
 $DOTFILES_REPO = 'git@github.com:fahmidur/dotfiles.git'
 
 class GitTrackedRepo
@@ -94,14 +95,48 @@ end
 class FileTree
   require 'find'
   require 'pathname'
+  require 'json'
 
-  def initialize(path)
+  def initialize(path, meta_path)
     path = Pathname.new(path)
     @path = path + 'tree'
+    @meta_path = meta_path
+    unless @meta_path
+      raise "meta_path required"
+    end
+    @meta_path = File.absolute_path(@meta_path)
+    @meta_data = meta_read!
+  end
+
+  def meta_read!
+    unless File.exists?(@meta_path)
+      return {}
+    end
+    body = IO.read(@meta_path)
+    data = nil
+    begin
+      data = JSON.parse(body)
+    rescue => err
+      puts "ERROR: Failed to parse meta data json"
+      data = {}
+    end
+    return (@meta_data = data)
+  end
+
+  def meta_write!
+    body = JSON.pretty_generate(@meta_data)
+    puts body
+    meta_path_dirname = File.dirname(@meta_path)
+    unless meta_path_dirname
+      FileUtils.mkdir_p(meta_path_dirname)
+    end
+    IO.write(@meta_path, body)
   end
 
   def sync!
-    puts "\n\n=== SYNC! Syncing ==="
+    puts "\n\n"
+    @meta_data[:synced_at] = Time.now.to_i
+    puts "=== SYNC! Syncing ==="
     Find.find(@path.to_s) do |path|
       next if File.directory?(path)
 
@@ -129,6 +164,7 @@ class FileTree
         npath_lstat = File.lstat(npath)
         if npath_lstat.symlink? && (npath_target = File.readlink(npath)) && (npath_target == path)
           puts " --- SKIPPED. Already Symlinked"
+          meta_rec_ln(path, npath, :skipped)
           next
         else
           puts
@@ -138,9 +174,30 @@ class FileTree
         puts
       end
 
+      meta_rec_ln(path, npath, :created)
       FileUtils.mkdir_p(npath_dirname)
       FileUtils.ln_sf(path, npath)
     end
+
+    puts "meta_data = #{@meta_data}"
+    meta_write!
+  end
+
+  def meta_rec_ln(source, target, status)
+    status = status.to_s
+
+    @meta_data['linked'] ||= {}
+    @meta_data['linked'][source] ||= {}
+
+    merge_data = {
+      'source' => source,
+      'target' => target,
+    }
+    merge_data['history'] ||= {}
+    merge_data['history'][status] = Time.now.to_i
+    merge_data['history']['created'] ||= Time.now.to_i
+
+    @meta_data['linked'][source].merge!(merge_data)
   end
 
   def backup(path)
@@ -161,5 +218,5 @@ dot_gtr = GitTrackedRepo.new($DOTFILES_REPO, $DOTFILES_PATH)
 dot_gtr.sync!
 
 #--- --- Safely symlink files
-ft = FileTree.new($DOTFILES_PATH)
+ft = FileTree.new($DOTFILES_PATH, $DOTFILES_TREE_META_PATH)
 ft.sync!
