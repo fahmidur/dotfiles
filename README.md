@@ -1,6 +1,6 @@
 # Dotfiles
 
-A small collection of of my dotfiles.
+A small collection of some of my dotfiles and a script to aid the synchronization.
 
 There is a setup script (*setup.rb*) which should setup everything I need on a new unconfigured machine.
 The setup script goes through the **tree** directory mapping each file to a target file on the current machine.
