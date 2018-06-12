@@ -147,7 +147,7 @@ class FileTree
       if File.exists?(target)
         puts "--- OK. Not Broken"
       else
-        puts "--- BROKEN_LINK: #{target}"
+        puts "--- LINK BROKEN. Removing"
         FileUtils.rm_f(target)
       end
     end
