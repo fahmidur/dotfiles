@@ -18,6 +18,13 @@ class GitTrackedRepo
   end
 
   def sync!
+    mydirpath = File.absolute_path(File.dirname(__FILE__))
+    puts "--- mydirpath = #{mydirpath}"
+    puts "--- @path      = #{@path.to_s}"
+    if mydirpath == @path.to_s
+      puts "GitTrackedRepo. WARNING! Current directory is target path. sync SKIPPED."
+      return
+    end
     if git_tracked?(@path)
       sync_again!
     else
