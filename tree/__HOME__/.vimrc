@@ -2,6 +2,7 @@
 "--- BEG. Plugins
 "------------------------------------------------------------------------------
   call plug#begin('~/.vim/plugged')
+  Plug 'flazz/vim-colorschemes'   " Large collection of colorschemes
   Plug 'kien/ctrlp.vim'           " Fuzzy file/buffer search
   Plug 'airblade/vim-gitgutter'   " Git changes in the gutter
   Plug 'ervandew/supertab'
