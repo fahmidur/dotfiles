@@ -125,7 +125,6 @@ class FileTree
 
   def meta_write!
     body = JSON.pretty_generate(@meta_data)
-    puts body
     meta_path_dirname = File.dirname(@meta_path)
     unless meta_path_dirname
       FileUtils.mkdir_p(meta_path_dirname)
@@ -134,9 +133,27 @@ class FileTree
   end
 
   def sync!
-    puts "\n\n"
-    @meta_data[:synced_at] = Time.now.to_i
+    puts "\n"
+    @meta_data['synced_at'] = Time.now.to_i
+
     puts "=== SYNC! Syncing ==="
+
+    puts "\n"
+    puts "=== SYNC! Checking previously linked files ..."
+    linked = @meta_data['linked']
+    linked.each do |source, data|
+      target = data['target']
+      print "#{target} "
+      if File.exists?(target)
+        puts "--- OK. Not Broken"
+      else
+        puts "--- BROKEN_LINK: #{target}"
+        FileUtils.rm_f(target)
+      end
+    end
+
+    puts "\n"
+    puts "=== SYNC! Linking tree ..."
     Find.find(@path.to_s) do |path|
       next if File.directory?(path)
 
@@ -179,7 +196,7 @@ class FileTree
       FileUtils.ln_sf(path, npath)
     end
 
-    puts "meta_data = #{@meta_data}"
+    #puts "meta_data = #{@meta_data}"
     meta_write!
   end
 
