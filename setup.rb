@@ -5,7 +5,7 @@ require 'pathname'
 
 $USER_HOME_PATH = Pathname.new(ENV['HOME'])
 $DOTFILES_PATH = $USER_HOME_PATH + 'dotfiles'
-$DOTFILES_REPO = 'https://github.com/fahmidur/dotfiles'
+$DOTFILES_REPO = 'git@github.com:fahmidur/dotfiles.git'
 
 class GitTrackedRepo
   require 'pathname'
@@ -33,10 +33,9 @@ class GitTrackedRepo
 
   def sync_again!
     git_run("clean -fd")
-    git_run("reset --hard")
     git_run("fetch --all")
-    git_run("checkout master")
-    git_run("pull")
+    git_run("checkout -f master")
+    git_run("reset --hard origin/master")
   end
 
   def git_tracked?(path)
