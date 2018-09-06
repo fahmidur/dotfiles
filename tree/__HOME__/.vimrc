@@ -188,3 +188,15 @@ set guioptions -=L " Remove Left-hand scroll-bar
 "au InsertLeave * hi Normal ctermbg=232 guibg=#1b1d1e
 
 let NERDTreeShowHidden=1
+
+
+
+highlight ColorColumn ctermbg=235 guibg=#232323
+let &colorcolumn=join(range(81,999),",")
+
+augroup custom001
+  au!
+  autocmd BufNewFile,BufRead *.sh.ejs   set syntax=sh
+augroup END
+
+set viminfo+=n~/.vim/viminfo
