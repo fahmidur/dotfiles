@@ -149,6 +149,7 @@ class FileTree
       else
         puts "--- LINK BROKEN. Removing"
         FileUtils.rm_f(target)
+        meta_link_rem(source)
       end
     end
 
@@ -181,7 +182,7 @@ class FileTree
         npath_lstat = File.lstat(npath)
         if npath_lstat.symlink? && (npath_target = File.readlink(npath)) && (npath_target == path)
           puts " --- SKIPPED. Already Symlinked"
-          meta_rec_ln(path, npath, :skipped)
+          meta_link_add(path, npath, :skipped)
           next
         else
           puts
@@ -191,7 +192,7 @@ class FileTree
         puts
       end
 
-      meta_rec_ln(path, npath, :created)
+      meta_link_add(path, npath, :created)
       FileUtils.mkdir_p(npath_dirname)
       FileUtils.ln_sf(path, npath)
     end
@@ -200,12 +201,10 @@ class FileTree
     meta_write!
   end
 
-  def meta_rec_ln(source, target, status)
+  def meta_link_add(source, target, status)
     status = status.to_s
-
     @meta_data['linked'] ||= {}
     @meta_data['linked'][source] ||= {}
-
     merge_data = {
       'source' => source,
       'target' => target,
@@ -213,8 +212,13 @@ class FileTree
     merge_data['history'] ||= {}
     merge_data['history'][status] = Time.now.to_i
     merge_data['history']['created'] ||= Time.now.to_i
-
     @meta_data['linked'][source].merge!(merge_data)
+  end
+
+  def meta_link_rem(source)
+    status = status.to_s
+    @meta_data['linked'] ||= {}
+    @meta_data['linked'].delete(source)
   end
 
   def backup(path)
