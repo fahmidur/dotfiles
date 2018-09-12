@@ -126,7 +126,7 @@ class FileTree
   def meta_write!
     body = JSON.pretty_generate(@meta_data)
     meta_path_dirname = File.dirname(@meta_path)
-    unless meta_path_dirname
+    unless Dir.exists?(meta_path_dirname)
       FileUtils.mkdir_p(meta_path_dirname)
     end
     IO.write(@meta_path, body)
