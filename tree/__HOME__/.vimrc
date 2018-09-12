@@ -2,6 +2,8 @@
 "--- BEG. Plugins
 "------------------------------------------------------------------------------
   call plug#begin('~/.vim/plugged')
+  Plug 'vim-airline/vim-airline'  " Airline
+  Plug 'vim-airline/vim-airline-themes'
   Plug 'flazz/vim-colorschemes'   " Large collection of colorschemes
   Plug 'kien/ctrlp.vim'           " Fuzzy file/buffer search
   Plug 'airblade/vim-gitgutter'   " Git changes in the gutter
@@ -146,9 +148,11 @@ set clipboard=unnamedplus " use the x11 clipboard
 
 " highlight Normal ctermfg=white ctermbg=black
 colorscheme predawn
+colorscheme dracula
 
 let g:airline_theme='wombat'
 let g:airline_powerline_fonts=1
+
 set laststatus=2
 
 let g:gitgutter_realtime = 0
@@ -192,7 +196,7 @@ let NERDTreeShowHidden=1
 
 
 highlight ColorColumn ctermbg=235 guibg=#232323
-let &colorcolumn=join(range(81,999),",")
+"let &colorcolumn=join(range(81,999),",")
 
 augroup custom001
   au!
@@ -200,3 +204,4 @@ augroup custom001
 augroup END
 
 set viminfo+=n~/.vim/viminfo
+set conceallevel=0
