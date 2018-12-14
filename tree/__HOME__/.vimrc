@@ -140,6 +140,7 @@ Plug 'tpope/vim-fugitive'       " For things like Gblame
 Plug 'Yggdroot/indentLine'      " Display indentation using pipes
 Plug 'SirVer/ultisnips'         " Snippets Engine
 Plug 'honza/vim-snippets'       " Snippets Collection
+Plug 'gabrielelana/vim-markdown'
 "Plug 'junegunn/goyo.vim'       " Distraction-Free Mode
 "Plug 'mhinz/vim-signify'
 "Plug 'Valloric/YouCompleteMe'  " Magical auto-completion
@@ -192,5 +193,7 @@ set guioptions -=L " Remove Left-hand scroll-bar
 " Change background color based on Normal/Insert Move
 "au InsertEnter * hi Normal ctermbg=234 guibg=#000000
 "au InsertLeave * hi Normal ctermbg=232 guibg=#1b1d1e
+
+autocmd BufNewFile,BufRead *.sh.ejs set syntax=sh
 
 let NERDTreeShowHidden=1
