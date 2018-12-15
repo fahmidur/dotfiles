@@ -72,7 +72,7 @@ class GitTrackedRepo
     end
     if com?("apt-get")
       puts "--- installing git via apt-get"
-      `system apt-get install git`
+      `sudo apt-get install git`
       return `which git`.chomp
     else
       puts "--- FATAL. you must install git"
