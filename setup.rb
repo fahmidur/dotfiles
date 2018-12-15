@@ -140,7 +140,7 @@ class FileTree
 
     puts "\n"
     puts "=== SYNC! Checking previously linked files ..."
-    linked = @meta_data['linked']
+    linked = (@meta_data['linked'] ||= {})
     linked.each do |source, data|
       target = data['target']
       print "#{target} "
