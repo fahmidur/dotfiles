@@ -1,16 +1,55 @@
-let mapleader=","
+"------------------------------------------------------------------------------
+"--- BEG. Plugins
+"------------------------------------------------------------------------------
+  call plug#begin('~/.vim/plugged')
+  Plug 'vim-airline/vim-airline'  " Airline
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'flazz/vim-colorschemes'   " Large collection of colorschemes
+  Plug 'kien/ctrlp.vim'           " Fuzzy file/buffer search
+  Plug 'airblade/vim-gitgutter'   " Git changes in the gutter
+  Plug 'ervandew/supertab'
+  Plug 'scrooloose/nerdtree'      " Side file tree
+  Plug 'majutsushi/tagbar'        " Tagbar
+  Plug 'mileszs/ack.vim'          " Search entire repo
+  Plug 'scrooloose/nerdcommenter' " Comment and Uncomment
+  Plug 'tpope/vim-fugitive'       " For things like Gblame
+  Plug 'Yggdroot/indentLine'      " Display indentation using pipes
+  Plug 'SirVer/ultisnips'         " Snippets Engine
+  Plug 'honza/vim-snippets'       " Snippets Collection
+  call plug#end()
+"--- END. Plugins
 
-"set colorcolumn=80
+"------------------------------------------------------------------------------
+"--- BEG. Key Mappings
+"------------------------------------------------------------------------------
+  let mapleader=","
 
-" Hack to allow saving when not started in sudo
-noremap <Leader>W :w !sudo tee % > /dev/null
-noremap <Leader>q :q<CR>
-noremap ; :
-noremap <Leader>f :Ack 
-"noremap <Leader>o
-"inoremap jj <esc>
+  nmap <silent> <c-n> :NERDTreeToggle<CR>
+  nmap <silent> <Leader>n :NERDTreeFind<CR>
+  nmap <silent> <Leader>m :only<CR>
+  nmap <silent> <Leader>r :TagbarToggle<CR> <c-w>w
+  nmap <c-b> :CtrlPBuffer<CR>
 
-"set runtimepath^=~/.vim/plugin/ctrlp.vim
+  " Hack to allow saving when not started in sudo
+  noremap <Leader>W :w !sudo tee % > /dev/null
+
+
+  " I love this one
+  noremap ; :
+
+  noremap <Leader>f :Ack 
+
+  " A bit too wacky, disabled for now
+  "inoremap jj <esc>
+  
+  noremap <Leader>q :q<CR>
+"------------------------------------------------------------------------------
+"--- END. Key Mappings
+"------------------------------------------------------------------------------
+
+"------------------------------------------------------------------------------
+" DISORGANIZED STUFF BELOW
+"------------------------------------------------------------------------------
 
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
@@ -49,11 +88,6 @@ set ruler		    " show the cursor position all the time
 set showcmd		    " display incomplete commands
 set incsearch		" do incremental searching
 
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
@@ -62,8 +96,8 @@ endif
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern. -- NO
 if &t_Co > 2 || has("gui_running")
-  syntax on
   " set hlsearch
+  syntax on
 endif
 
 " Only do this part when compiled with support for autocommands.
@@ -103,26 +137,22 @@ au FocusLost * silent! :wa
 " autosave when changing buffers
 set autowriteall
 
-
 au BufNewFile,BufRead *.ejs set filetype=html
 
 set cursorline
-set expandtab " Use spaces instead of tabs
+set expandtab " use spaces instead of tabs
 set tabstop=2
 set shiftwidth=2
 set nu
-set clipboard=unnamedplus " The x11 clipboard
+set clipboard=unnamedplus " use the x11 clipboard
 
 " highlight Normal ctermfg=white ctermbg=black
-" colorscheme delek
-" colorscheme delek
 colorscheme predawn
-
-"set background=dark
-"colorscheme material-theme
+colorscheme dracula
 
 let g:airline_theme='wombat'
 let g:airline_powerline_fonts=1
+
 set laststatus=2
 
 let g:gitgutter_realtime = 0
@@ -151,31 +181,19 @@ call plug#end()
 "let g:NERDTreeQuitOnOpen = 1
 " Does not behave as expected
 
-"BEG. Configure ctrlp
+"--- BEG. Configure ctrlp
 "let g:ctrlp_clear_cache_on_exit = 0
 "let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-
 let g:snips_author = 'SFR'
-
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
-"END. Configure ctrlp
+"--- END. Configure ctrlp
 
 let g:indentLine_char = '│'
 
 
-nmap <silent> <c-n> :NERDTreeToggle<CR>
-nmap <silent> <Leader>n :NERDTreeFind<CR>
-nmap <silent> <Leader>m :only<CR>
-" nmap <c-_> gcc " Does not work as expected
-
-nmap <silent> <Leader>r :TagbarToggle<CR> <c-w>w
-"nmap <silent> <Leader>w <c-w>w
-"imap <silent> <Leader>w <c-w>w
-"nmap <c-p> :find 
-nmap <c-b> :CtrlPBuffer<CR>
 
 command W w
 
@@ -197,3 +215,16 @@ set guioptions -=L " Remove Left-hand scroll-bar
 autocmd BufNewFile,BufRead *.sh.ejs set syntax=sh
 
 let NERDTreeShowHidden=1
+
+
+
+highlight ColorColumn ctermbg=235 guibg=#232323
+"let &colorcolumn=join(range(81,999),",")
+
+augroup custom001
+  au!
+  autocmd BufNewFile,BufRead *.sh.ejs   set syntax=sh
+augroup END
+
+set viminfo+=n~/.vim/viminfo
+set conceallevel=0
