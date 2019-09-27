@@ -7,7 +7,6 @@
   Plug 'flazz/vim-colorschemes'   " Large collection of colorschemes
   Plug 'kien/ctrlp.vim'           " Fuzzy file/buffer search
   Plug 'airblade/vim-gitgutter'   " Git changes in the gutter
-  Plug 'ervandew/supertab'
   Plug 'scrooloose/nerdtree'      " Side file tree
   Plug 'majutsushi/tagbar'        " Tagbar
   Plug 'mileszs/ack.vim'          " Search entire repo
@@ -16,6 +15,7 @@
   Plug 'Yggdroot/indentLine'      " Display indentation using pipes
   Plug 'SirVer/ultisnips'         " Snippets Engine
   Plug 'honza/vim-snippets'       " Snippets Collection
+  "Plug 'ervandew/supertab'
   call plug#end()
 "--- END. Plugins
 
@@ -158,25 +158,25 @@ set laststatus=2
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
-call plug#begin('~/.vim/plugged')
-Plug 'kien/ctrlp.vim'           " Fuzzy file/buffer search
-Plug 'airblade/vim-gitgutter'   " Git changes in the gutter
-Plug 'ervandew/supertab'
-Plug 'scrooloose/nerdtree'      " Side file tree
-Plug 'majutsushi/tagbar'        " Tagbar
-Plug 'mileszs/ack.vim'          " Search entire repo
-Plug 'scrooloose/nerdcommenter' " Comment and Uncomment
-Plug 'tpope/vim-fugitive'       " For things like Gblame
-Plug 'Yggdroot/indentLine'      " Display indentation using pipes
-Plug 'SirVer/ultisnips'         " Snippets Engine
-Plug 'honza/vim-snippets'       " Snippets Collection
-Plug 'gabrielelana/vim-markdown'
+"call plug#begin('~/.vim/plugged')
+"Plug 'kien/ctrlp.vim'           " Fuzzy file/buffer search
+"Plug 'airblade/vim-gitgutter'   " Git changes in the gutter
+"Plug 'ervandew/supertab'
+"Plug 'scrooloose/nerdtree'      " Side file tree
+"Plug 'majutsushi/tagbar'        " Tagbar
+"Plug 'mileszs/ack.vim'          " Search entire repo
+"Plug 'scrooloose/nerdcommenter' " Comment and Uncomment
+"Plug 'tpope/vim-fugitive'       " For things like Gblame
+"Plug 'Yggdroot/indentLine'      " Display indentation using pipes
+"Plug 'SirVer/ultisnips'         " Snippets Engine
+"Plug 'honza/vim-snippets'       " Snippets Collection
+"Plug 'gabrielelana/vim-markdown'
 "Plug 'junegunn/goyo.vim'       " Distraction-Free Mode
 "Plug 'mhinz/vim-signify'
 "Plug 'Valloric/YouCompleteMe'  " Magical auto-completion
 "Plug 'vim-scripts/AutoComplPop' " Auto trigger completion
 "Plug 'nathanaelkane/vim-indent-guides'
-call plug#end()
+"call plug#end()
 
 "let g:NERDTreeQuitOnOpen = 1
 " Does not behave as expected
@@ -193,8 +193,6 @@ let g:ctrlp_custom_ignore = {
 
 let g:indentLine_char = '│'
 
-
-
 command W w
 
 if executable('ag')
@@ -203,10 +201,12 @@ endif
 
 filetype plugin on
 
-set guioptions -=m " Remove menubar
-set guioptions -=T " Remove toobar
-set guioptions -=r " Remove Right-hand scroll-bar
-set guioptions -=L " Remove Left-hand scroll-bar
+if exists('guioptions')
+  set guioptions -= m " Remove menubar
+  set guioptions -= T " Remove toobar
+  set guioptions -= r " Remove Right-hand scroll-bar
+  set guioptions -= L " Remove Left-hand scroll-bar
+endif
 
 " Change background color based on Normal/Insert Move
 "au InsertEnter * hi Normal ctermbg=234 guibg=#000000
@@ -215,8 +215,6 @@ set guioptions -=L " Remove Left-hand scroll-bar
 autocmd BufNewFile,BufRead *.sh.ejs set syntax=sh
 
 let NERDTreeShowHidden=1
-
-
 
 highlight ColorColumn ctermbg=235 guibg=#232323
 "let &colorcolumn=join(range(81,999),",")
