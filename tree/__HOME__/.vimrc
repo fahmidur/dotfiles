@@ -15,7 +15,7 @@
   Plug 'Yggdroot/indentLine'      " Display indentation using pipes
   Plug 'SirVer/ultisnips'         " Snippets Engine
   Plug 'honza/vim-snippets'       " Snippets Collection
-  "Plug 'ervandew/supertab'
+  Plug 'ervandew/supertab'
   call plug#end()
 "--- END. Plugins
 
