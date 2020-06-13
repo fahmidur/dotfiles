@@ -1,7 +1,11 @@
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
 "------------------------------------------------------------------------------
 "--- BEG. Plugins
 "------------------------------------------------------------------------------
-  call plug#begin('~/.vim/plugged')
+call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline'  " Airline
   Plug 'vim-airline/vim-airline-themes'
   Plug 'flazz/vim-colorschemes'   " Large collection of colorschemes
@@ -16,7 +20,17 @@
   Plug 'Yggdroot/indentLine'      " Display indentation using pipes
   Plug 'SirVer/ultisnips'         " Snippets Engine
   Plug 'honza/vim-snippets'       " Snippets Collection
-  call plug#end()
+  Plug 'gabrielelana/vim-markdown'
+  Plug 'octol/vim-cpp-enhanced-highlight'
+  Plug 'qpkorr/vim-bufkill'       " bd without losing window
+  Plug 'PProvost/vim-ps1'
+  "---
+  "Plug 'junegunn/goyo.vim'       " Distraction-Free Mode
+  "Plug 'mhinz/vim-signify'
+  "Plug 'Valloric/YouCompleteMe'  " Magical auto-completion
+  "Plug 'vim-scripts/AutoComplPop' " Auto trigger completion
+  "Plug 'nathanaelkane/vim-indent-guides'
+call plug#end()
 "--- END. Plugins
 
 "------------------------------------------------------------------------------
@@ -28,7 +42,8 @@
   nmap <silent> <Leader>n :NERDTreeFind<CR>
   nmap <silent> <Leader>m :only<CR>
   nmap <silent> <Leader>r :TagbarToggle<CR> <c-w>w
-  nmap <c-b> :CtrlPBuffer<CR>
+  "nmap <c-b> :CtrlPBuffer<CR>
+  nmap <silent> <Leader>b :CtrlPBuffer<CR>
 
   " Hack to allow saving when not started in sudo
   noremap <Leader>W :w !sudo tee % > /dev/null
@@ -51,18 +66,14 @@
 " DISORGANIZED STUFF BELOW
 "------------------------------------------------------------------------------
 
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
 "set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME
 
 " Bugfix for slow Ruby syntax highlighting
 " Forces VIM to use an older and better regex engine.
-set re=1
+"set re=1
 
 set path+=**
 set wildmenu
-
 
 set t_Co=256
 
@@ -107,13 +118,14 @@ if has("autocmd")
   " 'cindent' is on in C files, etc.
   " Also load indent files, to automatically do language-dependent indenting.
   filetype plugin indent on
+  set cindent!
 
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
   au!
 
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
+  " For all text files set 'textwidth' to 80 characters.
+  autocmd FileType text setlocal textwidth=80
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -139,7 +151,7 @@ set autowriteall
 
 au BufNewFile,BufRead *.ejs set filetype=html
 
-set cursorline
+"set cursorline
 set expandtab " use spaces instead of tabs
 set tabstop=2
 set shiftwidth=2
@@ -147,8 +159,9 @@ set nu
 set clipboard=unnamedplus " use the x11 clipboard
 
 " highlight Normal ctermfg=white ctermbg=black
-colorscheme predawn
-colorscheme dracula
+"colorscheme predawn
+"colorscheme dracula
+colorscheme atom
 
 let g:airline_theme='wombat'
 let g:airline_powerline_fonts=1
@@ -158,26 +171,6 @@ set laststatus=2
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
-call plug#begin('~/.vim/plugged')
-Plug 'kien/ctrlp.vim'           " Fuzzy file/buffer search
-Plug 'airblade/vim-gitgutter'   " Git changes in the gutter
-Plug 'ervandew/supertab'
-Plug 'scrooloose/nerdtree'      " Side file tree
-Plug 'majutsushi/tagbar'        " Tagbar
-Plug 'mileszs/ack.vim'          " Search entire repo
-Plug 'scrooloose/nerdcommenter' " Comment and Uncomment
-Plug 'tpope/vim-fugitive'       " For things like Gblame
-Plug 'Yggdroot/indentLine'      " Display indentation using pipes
-Plug 'SirVer/ultisnips'         " Snippets Engine
-Plug 'honza/vim-snippets'       " Snippets Collection
-Plug 'gabrielelana/vim-markdown'
-"Plug 'junegunn/goyo.vim'       " Distraction-Free Mode
-"Plug 'mhinz/vim-signify'
-"Plug 'Valloric/YouCompleteMe'  " Magical auto-completion
-"Plug 'vim-scripts/AutoComplPop' " Auto trigger completion
-"Plug 'nathanaelkane/vim-indent-guides'
-call plug#end()
-
 "let g:NERDTreeQuitOnOpen = 1
 " Does not behave as expected
 
@@ -186,14 +179,12 @@ call plug#end()
 "let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:snips_author = 'SFR'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
+  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|out)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
 "--- END. Configure ctrlp
 
 let g:indentLine_char = '│'
-
-
 
 command W w
 
@@ -224,7 +215,10 @@ highlight ColorColumn ctermbg=235 guibg=#232323
 augroup custom001
   au!
   autocmd BufNewFile,BufRead *.sh.ejs   set syntax=sh
+  autocmd BufNewFile,BufRead *.js.ejs   set syntax=javascript
 augroup END
 
 set viminfo+=n~/.vim/viminfo
 set conceallevel=0
+
+set belloff=all
