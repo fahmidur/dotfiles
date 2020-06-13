@@ -10,6 +10,11 @@ set guioptions-=m " Remove menubar
 set guioptions-=T " Remove toobar
 set guioptions-=r " Remove Right-hand scroll-bar
 set guioptions-=L " Remove Left-hand scroll-bar
+
+" Many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+  set mouse=a
+endif
 "------------------------------------------------------------------------------
 "--- END. Options
 "------------------------------------------------------------------------------
@@ -67,20 +72,14 @@ noremap <Leader>q :q<CR>
 " --- --- DISORGANIZED STUFF BELOW --- ---
 "------------------------------------------------------------------------------
 
-" Bugfix for slow Ruby syntax highlighting
-" Forces VIM to use an older and better regex engine.
-"set re=1
-
 set path+=**
 set wildmenu
-
 set t_Co=256
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
 
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
+set noswapfile    " do not make swap files
 else
   set backup
   set backupdir=~/.vim/backupdir//
@@ -90,23 +89,14 @@ else
   set undolevels=1000
   set undoreload=10000
 endif
-set nobackup
-set noswapfile
 
 set history=50		" keep 50 lines of command line history
 set ruler		      " show the cursor position all the time
 set showcmd		    " display incomplete commands
 set incsearch		  " do incremental searching
 
-" in many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
-
 " Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern. -- NO
 if &t_Co > 2 || has("gui_running")
-  " set hlsearch
   syntax on
 endif
 
