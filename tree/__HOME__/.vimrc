@@ -1,6 +1,18 @@
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
+
+"------------------------------------------------------------------------------
+"--- BEG. Options
+"------------------------------------------------------------------------------
 set nocompatible
+
+set guioptions-=m " Remove menubar
+set guioptions-=T " Remove toobar
+set guioptions-=r " Remove Right-hand scroll-bar
+set guioptions-=L " Remove Left-hand scroll-bar
+"------------------------------------------------------------------------------
+"--- END. Options
+"------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
 "--- BEG. Plugins
@@ -21,42 +33,39 @@ call plug#begin('~/.vim/plugged')
   Plug 'honza/vim-snippets'       " Snippets Collection
   Plug 'ervandew/supertab'
   call plug#end()
+"------------------------------------------------------------------------------
 "--- END. Plugins
+"------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
 "--- BEG. Key Mappings
 "------------------------------------------------------------------------------
-  let mapleader=","
+let mapleader=","
 
-  nmap <silent> <c-n> :NERDTreeToggle<CR>
-  nmap <silent> <Leader>n :NERDTreeFind<CR>
-  nmap <silent> <Leader>m :only<CR>
-  nmap <silent> <Leader>r :TagbarToggle<CR> <c-w>w
-  "nmap <c-b> :CtrlPBuffer<CR>
-  nmap <silent> <Leader>b :CtrlPBuffer<CR>
+nmap <silent> <c-n> :NERDTreeToggle<CR>
+nmap <silent> <Leader>n :NERDTreeFind<CR>
+nmap <silent> <Leader>m :only<CR>
+nmap <silent> <Leader>r :TagbarToggle<CR> <c-w>w
+"nmap <c-b> :CtrlPBuffer<CR>
+nmap <silent> <Leader>b :CtrlPBuffer<CR>
 
-  " Hack to allow saving when not started in sudo
-  noremap <Leader>W :w !sudo tee % > /dev/null
+" Hack to allow saving when not started in sudo
+noremap <Leader>W :w !sudo tee % > /dev/null
 
 
-  " I love this one
-  noremap ; :
+" I love this one
+noremap ; :
 
-  noremap <Leader>f :Ack 
+noremap <Leader>f :Ack 
 
-  " A bit too wacky, disabled for now
-  "inoremap jj <esc>
-  
-  noremap <Leader>q :q<CR>
+noremap <Leader>q :q<CR>
 "------------------------------------------------------------------------------
 "--- END. Key Mappings
 "------------------------------------------------------------------------------
 
 "------------------------------------------------------------------------------
-" DISORGANIZED STUFF BELOW
+" --- --- DISORGANIZED STUFF BELOW --- ---
 "------------------------------------------------------------------------------
-
-"set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME
 
 " Bugfix for slow Ruby syntax highlighting
 " Forces VIM to use an older and better regex engine.
@@ -85,11 +94,11 @@ set nobackup
 set noswapfile
 
 set history=50		" keep 50 lines of command line history
-set ruler		    " show the cursor position all the time
+set ruler		      " show the cursor position all the time
 set showcmd		    " display incomplete commands
-set incsearch		" do incremental searching
+set incsearch		  " do incremental searching
 
-" In many terminal emulators the mouse works just fine, thus enable it.
+" in many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
 endif
@@ -180,13 +189,6 @@ if executable('ag')
 endif
 
 filetype plugin on
-
-if exists('guioptions')
-  set guioptions -= m " Remove menubar
-  set guioptions -= T " Remove toobar
-  set guioptions -= r " Remove Right-hand scroll-bar
-  set guioptions -= L " Remove Left-hand scroll-bar
-endif
 
 " Change background color based on Normal/Insert Move
 "au InsertEnter * hi Normal ctermbg=234 guibg=#000000
