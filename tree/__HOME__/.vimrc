@@ -37,6 +37,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'SirVer/ultisnips'         " Snippets Engine
   Plug 'honza/vim-snippets'       " Snippets Collection
   Plug 'ervandew/supertab'
+  Plug 'posva/vim-vue'
   call plug#end()
 "------------------------------------------------------------------------------
 "--- END. Plugins
@@ -150,7 +151,13 @@ set clipboard=unnamedplus " use the x11 clipboard
 " highlight Normal ctermfg=white ctermbg=black
 "colorscheme predawn
 "colorscheme dracula
-colorscheme atom
+"colorscheme atom
+if has("gui_running")
+  colorscheme gotham
+else
+  colorscheme gotham256
+endif
+
 
 let g:airline_theme='wombat'
 let g:airline_powerline_fonts=1
@@ -168,6 +175,8 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|out)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
+ 
+let g:ctrlp_cmd='CtrlP :pwd'
 "--- END. Configure ctrlp
 
 let g:indentLine_char = '│'
