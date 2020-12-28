@@ -38,6 +38,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'honza/vim-snippets'       " Snippets Collection
   Plug 'ervandew/supertab'
   Plug 'posva/vim-vue'
+  Plug 'junegunn/goyo.vim'
   call plug#end()
 "------------------------------------------------------------------------------
 "--- END. Plugins
