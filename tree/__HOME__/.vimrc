@@ -39,7 +39,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'ervandew/supertab'
   Plug 'posva/vim-vue'
   Plug 'junegunn/goyo.vim'
-  call plug#end()
+  Plug 'NLKNguyen/papercolor-theme'
+  Plug '907th/vim-auto-save'
+call plug#end()
 "------------------------------------------------------------------------------
 "--- END. Plugins
 "------------------------------------------------------------------------------
@@ -115,8 +117,11 @@ if has("autocmd")
   augroup vimrcEx
   au!
 
+  " Set syntax for Rexfile (a Perl configuration management package)
+  autocmd BufNewFile,BufRead Rexfile set syntax=perl
+
   " For all text files set 'textwidth' to 80 characters.
-  autocmd FileType text setlocal textwidth=80
+  "autocmd FileType text setlocal textwidth=80
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -138,7 +143,9 @@ set autoindent
 au FocusLost * silent! :wa
 
 " autosave when changing buffers
-set autowriteall
+"set autowriteall
+let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save_write_all_buffers = 1  " write all open buffers as if you would use :wa
 
 au BufNewFile,BufRead *.ejs set filetype=html
 
@@ -153,15 +160,24 @@ set clipboard=unnamedplus " use the x11 clipboard
 "colorscheme predawn
 "colorscheme dracula
 "colorscheme atom
-if has("gui_running")
-  colorscheme gotham
-else
-  colorscheme gotham256
-endif
-
+"if has("gui_running")
+  "colorscheme gotham
+"else
+  "colorscheme gotham256
+"endif
+set background=dark
+colorscheme PaperColor
 
 let g:airline_theme='wombat'
-let g:airline_powerline_fonts=1
+"let g:airline_theme='papercolor'
+if has("gui_running")
+  " airline fonts are broken on gvim for some reason
+  let g:airline_powerline_fonts=0
+else
+  "let g:airline_powerline_fonts=1
+  " SFR: > nevermind, powerline does not look that great anyway.
+  let g:airline_powerline_fonts=0
+endif
 
 set laststatus=2
 
@@ -211,3 +227,37 @@ set viminfo+=n~/.vim/viminfo
 set conceallevel=0
 
 set belloff=all
+
+" { fix-airline {
+" https://vi.stackexchange.com/questions/3359/how-do-i-fix-the-status-bar-symbols-in-the-airline-plugin
+" air-line
+if has('gui_running') 
+  set guifont="monospace"
+endif
+"if !exists('g:airline_symbols')
+  "let g:airline_symbols = {}
+"endif
+
+"" unicode symbols
+"let g:airline_left_sep = '»'
+"let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '«'
+"let g:airline_right_sep = '◀'
+"let g:airline_symbols.linenr = '␊'
+"let g:airline_symbols.linenr = '␤'
+"let g:airline_symbols.linenr = '¶'
+"let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.paste = 'Þ'
+"let g:airline_symbols.paste = '∥'
+"let g:airline_symbols.whitespace = 'Ξ'
+
+"" airline symbols
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+"let g:airline_symbols.branch = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.linenr = ''
+" } fix-airline }
