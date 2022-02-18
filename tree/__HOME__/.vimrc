@@ -15,6 +15,10 @@ set guioptions-=L " Remove Left-hand scroll-bar
 if has('mouse')
   set mouse=a
 endif
+
+set encoding=utf-8
+set fileencoding=utf-8
+set termencoding=utf-8
 "------------------------------------------------------------------------------
 "--- END. Options
 "------------------------------------------------------------------------------
@@ -55,14 +59,13 @@ nmap <silent> <c-n> :NERDTreeToggle<CR>
 nmap <silent> <Leader>n :NERDTreeFind<CR>
 nmap <silent> <Leader>m :only<CR>
 nmap <silent> <Leader>r :TagbarToggle<CR> <c-w>w
-"nmap <c-b> :CtrlPBuffer<CR>
 nmap <silent> <Leader>b :CtrlPBuffer<CR>
 
-" Hack to allow saving when not started in sudo
+" SFR: Hack to allow saving when not started in sudo
 noremap <Leader>W :w !sudo tee % > /dev/null
 
 
-" I love this one
+" SFR: I love this one
 noremap ; :
 
 noremap <Leader>f :Ack 
@@ -83,7 +86,7 @@ set backspace=indent,eol,start " allow backspacing over everything in insert mod
 
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
-set noswapfile    " do not make swap files
+  set noswapfile    " do not make swap files
 else
   set backup
   set backupdir=~/.vim/backupdir//
@@ -167,19 +170,18 @@ set clipboard=unnamedplus " use the x11 clipboard
 "endif
 set background=dark
 colorscheme PaperColor
-
 let g:airline_theme='wombat'
 "let g:airline_theme='papercolor'
-if has("gui_running")
-  " airline fonts are broken on gvim for some reason
-  let g:airline_powerline_fonts=0
-else
-  "let g:airline_powerline_fonts=1
-  " SFR: > nevermind, powerline does not look that great anyway.
-  let g:airline_powerline_fonts=0
-endif
-
-set laststatus=2
+"if has("gui_running")
+  "" airline fonts are broken on gvim for some reason
+  ""let g:airline_powerline_fonts=0
+  ""let g:airline_powerline_fonts=1
+"else
+  ""let g:airline_powerline_fonts=1
+  "" SFR: > nevermind, powerline does not look that great anyway.
+  ""let g:airline_powerline_fonts=0
+"endif
+"let g:airline_powerline_fonts=1
 
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
@@ -231,9 +233,9 @@ set belloff=all
 " { fix-airline {
 " https://vi.stackexchange.com/questions/3359/how-do-i-fix-the-status-bar-symbols-in-the-airline-plugin
 " air-line
-if has('gui_running') 
-  set guifont="monospace"
-endif
+"if has('gui_running') 
+  "set guifont="monospace"
+"endif
 "if !exists('g:airline_symbols')
   "let g:airline_symbols = {}
 "endif
