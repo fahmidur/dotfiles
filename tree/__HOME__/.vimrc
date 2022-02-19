@@ -181,7 +181,7 @@ let g:airline_theme='wombat'
   "" SFR: > nevermind, powerline does not look that great anyway.
   ""let g:airline_powerline_fonts=0
 "endif
-"let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts=1
 
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
