@@ -19,6 +19,9 @@ endif
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
+
+"set t_Co=256 # SFR: no long advised, let vim decide based on $TERM
+
 "------------------------------------------------------------------------------
 "--- END. Options
 "------------------------------------------------------------------------------
@@ -81,7 +84,6 @@ noremap <Leader>q :q<CR>
 
 set path+=**
 set wildmenu
-set t_Co=256
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 
 if has("vms")
