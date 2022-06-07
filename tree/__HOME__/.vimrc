@@ -11,7 +11,7 @@ set guioptions-=T " Remove toobar
 set guioptions-=r " Remove Right-hand scroll-bar
 set guioptions-=L " Remove Left-hand scroll-bar
 
-" Many terminal emulators the mouse works just fine, thus enable it.
+" In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
 endif
@@ -21,6 +21,14 @@ set fileencoding=utf-8
 set termencoding=utf-8
 
 "set t_Co=256 # SFR: no long advised, let vim decide based on $TERM
+" Switch syntax highlighting on, when the terminal has colors
+if &t_Co > 2 || has("gui_running")
+  syntax on
+endif
+
+set path+=**
+set wildmenu
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
 
 "------------------------------------------------------------------------------
 "--- END. Options
@@ -82,12 +90,8 @@ noremap <Leader>q :q<CR>
 " --- --- DISORGANIZED STUFF BELOW --- ---
 "------------------------------------------------------------------------------
 
-set path+=**
-set wildmenu
-set backspace=indent,eol,start " allow backspacing over everything in insert mode
-
 if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
+  set nobackup		  " do not keep a backup file, use versions instead
   set noswapfile    " do not make swap files
 else
   set backup
@@ -104,10 +108,6 @@ set ruler		      " show the cursor position all the time
 set showcmd		    " display incomplete commands
 set incsearch		  " do incremental searching
 
-" Switch syntax highlighting on, when the terminal has colors
-if &t_Co > 2 || has("gui_running")
-  syntax on
-endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
