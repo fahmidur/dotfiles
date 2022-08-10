@@ -26,9 +26,13 @@ if &t_Co > 2 || has("gui_running")
   syntax on
 endif
 
-set path+=**
-set wildmenu
-set backspace=indent,eol,start " allow backspacing over everything in insert mode
+if has("gui_running")
+  "set guifont=Source\ Code\ Pro\ 11
+  set guifont=Monospace\ Regular\ 11
+endif
+
+" prevent comma in text from auto-indenting
+autocmd FileType text setlocal nocindent
 
 "------------------------------------------------------------------------------
 "--- END. Options
@@ -54,8 +58,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'ervandew/supertab'
   Plug 'posva/vim-vue'
   Plug 'junegunn/goyo.vim'
-  Plug 'NLKNguyen/papercolor-theme'
   Plug '907th/vim-auto-save'
+  " themes
+  "Plug 'NLKNguyen/papercolor-theme'
+  Plug 'arcticicestudio/nord-vim', {'branch': 'main'}
+  Plug 'dense-analysis/ale'
 call plug#end()
 "------------------------------------------------------------------------------
 "--- END. Plugins
@@ -170,9 +177,13 @@ set clipboard=unnamedplus " use the x11 clipboard
 "else
   "colorscheme gotham256
 "endif
-set background=dark
-colorscheme PaperColor
-let g:airline_theme='wombat'
+"set background=dark
+"colorscheme PaperColor
+"colorscheme materialbox
+colorscheme nord
+"---
+"let g:airline_theme='nord'
+"let g:airline_theme='wombat'
 "let g:airline_theme='papercolor'
 "if has("gui_running")
   "" airline fonts are broken on gvim for some reason
