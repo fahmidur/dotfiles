@@ -177,10 +177,10 @@ set clipboard=unnamedplus " use the x11 clipboard
 "else
   "colorscheme gotham256
 "endif
-"set background=dark
-"colorscheme PaperColor
+set background=dark
+colorscheme PaperColor
 "colorscheme materialbox
-colorscheme nord
+"colorscheme nord
 "---
 "let g:airline_theme='nord'
 "let g:airline_theme='wombat'
