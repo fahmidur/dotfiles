@@ -62,7 +62,7 @@ call plug#begin('~/.vim/plugged')
   " themes
   "Plug 'NLKNguyen/papercolor-theme'
   Plug 'arcticicestudio/nord-vim', {'branch': 'main'}
-  Plug 'dense-analysis/ale'
+  "Plug 'dense-analysis/ale'
 call plug#end()
 "------------------------------------------------------------------------------
 "--- END. Plugins
