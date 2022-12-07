@@ -88,7 +88,8 @@ noremap ; :
 
 noremap <Leader>f :Ack 
 
-noremap <Leader>q :q<CR>
+"noremap <Leader>q :q<CR>
+noremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 "------------------------------------------------------------------------------
 "--- END. Key Mappings
 "------------------------------------------------------------------------------
