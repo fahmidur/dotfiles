@@ -58,11 +58,13 @@ call plug#begin('~/.vim/plugged')
   Plug 'ervandew/supertab'
   Plug 'posva/vim-vue'
   Plug 'junegunn/goyo.vim'
-  Plug '907th/vim-auto-save'
+  "Plug 'sheerun/vim-polyglot'    "Annoying
+  "Plug '907th/vim-auto-save'     " Defective
   " themes
   "Plug 'NLKNguyen/papercolor-theme'
   Plug 'arcticicestudio/nord-vim', {'branch': 'main'}
   "Plug 'dense-analysis/ale'
+  Plug 'psf/black', { 'branch': 'stable' } " Python linting
 call plug#end()
 "------------------------------------------------------------------------------
 "--- END. Plugins
@@ -107,10 +109,10 @@ else
   set directory=~/.vim/swpdir//
   set undofile
   set undodir=~/.vim/undodir//
-  set undolevels=1000
-  set undoreload=10000
 endif
 
+set undolevels=10000
+set undoreload=10000
 set history=50		" keep 50 lines of command line history
 set ruler		      " show the cursor position all the time
 set showcmd		    " display incomplete commands
@@ -124,7 +126,7 @@ if has("autocmd")
   " 'cindent' is on in C files, etc.
   " Also load indent files, to automatically do language-dependent indenting.
   filetype plugin indent on
-  set cindent!
+  "set cindent!
 
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
@@ -153,12 +155,12 @@ endif " has("autocmd")a
 set autoindent
 
 " write whenever focus is lost
-au FocusLost * silent! :wa
+" au FocusLost * silent! :wa
 
 " autosave when changing buffers
-"set autowriteall
-let g:auto_save = 1  " enable AutoSave on Vim startup
-let g:auto_save_write_all_buffers = 1  " write all open buffers as if you would use :wa
+set autowriteall
+"let g:auto_save = 1  " enable AutoSave on Vim startup
+"let g:auto_save_write_all_buffers = 1  " write all open buffers as if you would use :wa
 
 au BufNewFile,BufRead *.ejs set filetype=html
 
