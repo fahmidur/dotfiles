@@ -231,6 +231,9 @@ filetype plugin on
 autocmd BufNewFile,BufRead *.sh.ejs set syntax=sh
 
 let NERDTreeShowHidden=1
+" Workaround for NerdTree + Vim9 compatibility issue
+" https://github.com/preservim/nerdtree/issues/1321
+let g:NERDTreeMinimalMenu=1
 
 highlight ColorColumn ctermbg=235 guibg=#232323
 "let &colorcolumn=join(range(81,999),",")
@@ -245,6 +248,8 @@ set viminfo+=n~/.vim/viminfo
 set conceallevel=0
 
 set belloff=all
+
+
 
 " { fix-airline {
 " https://vi.stackexchange.com/questions/3359/how-do-i-fix-the-status-bar-symbols-in-the-airline-plugin
