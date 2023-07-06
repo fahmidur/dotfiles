@@ -57,14 +57,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'honza/vim-snippets'       " Snippets Collection
   Plug 'ervandew/supertab'
   Plug 'posva/vim-vue'
-  Plug 'junegunn/goyo.vim'
+  "Plug 'junegunn/goyo.vim'
   "Plug 'sheerun/vim-polyglot'    "Annoying
   "Plug '907th/vim-auto-save'     " Defective
   " themes
   "Plug 'NLKNguyen/papercolor-theme'
-  Plug 'arcticicestudio/nord-vim', {'branch': 'main'}
+  "Plug 'arcticicestudio/nord-vim', {'branch': 'main'}
   "Plug 'dense-analysis/ale'
-  Plug 'psf/black', { 'branch': 'stable' } " Python linting
+  "Plug 'psf/black', { 'branch': 'stable' } " Python linting
 call plug#end()
 "------------------------------------------------------------------------------
 "--- END. Plugins
@@ -279,3 +279,5 @@ set belloff=all
 "let g:airline_symbols.readonly = ''
 "let g:airline_symbols.linenr = ''
 " } fix-airline }
+
+
