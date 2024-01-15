@@ -1,9 +1,9 @@
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-
 "------------------------------------------------------------------------------
 "--- BEG. Options
 "------------------------------------------------------------------------------
+
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
 set nocompatible
 
 set guioptions-=m " Remove menubar
@@ -28,11 +28,14 @@ endif
 
 if has("gui_running")
   "set guifont=Source\ Code\ Pro\ 11
-  set guifont=Monospace\ Regular\ 11
+  "set guifont=Monospace\ Regular\ 11
+  set guifont=Courier\ Prime\ 11
 endif
 
 " prevent comma in text from auto-indenting
 autocmd FileType text setlocal nocindent
+
+let g:vim_json_syntax_conceal = 0
 
 "------------------------------------------------------------------------------
 "--- END. Options
@@ -48,7 +51,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'kien/ctrlp.vim'           " Fuzzy file/buffer search
   Plug 'airblade/vim-gitgutter'   " Git changes in the gutter
   Plug 'scrooloose/nerdtree'      " Side file tree
-  Plug 'majutsushi/tagbar'        " Tagbar
+  "Plug 'majutsushi/tagbar'        " Tagbar
+  Plug 'preservim/tagbar'
+  "Plug 'liuchengxu/vista.vim'
   Plug 'mileszs/ack.vim'          " Search entire repo
   Plug 'scrooloose/nerdcommenter' " Comment and Uncomment
   Plug 'tpope/vim-fugitive'       " For things like Gblame
@@ -57,12 +62,13 @@ call plug#begin('~/.vim/plugged')
   Plug 'honza/vim-snippets'       " Snippets Collection
   Plug 'ervandew/supertab'
   Plug 'posva/vim-vue'
+  Plug 'ziglang/zig.vim'
   "Plug 'junegunn/goyo.vim'
   "Plug 'sheerun/vim-polyglot'    "Annoying
   "Plug '907th/vim-auto-save'     " Defective
   " themes
-  "Plug 'NLKNguyen/papercolor-theme'
-  "Plug 'arcticicestudio/nord-vim', {'branch': 'main'}
+  Plug 'NLKNguyen/papercolor-theme'
+  Plug 'arcticicestudio/nord-vim', {'branch': 'main'}
   "Plug 'dense-analysis/ale'
   "Plug 'psf/black', { 'branch': 'stable' } " Python linting
 call plug#end()
@@ -207,7 +213,7 @@ let g:gitgutter_eager = 0
 "let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:snips_author = 'SFR'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|out)$',
+  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|out|docs|dlcache)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
  
@@ -248,7 +254,6 @@ set viminfo+=n~/.vim/viminfo
 set conceallevel=0
 
 set belloff=all
-
 
 
 " { fix-airline {
