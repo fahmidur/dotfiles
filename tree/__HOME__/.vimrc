@@ -59,6 +59,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'posva/vim-vue'
   Plug 'junegunn/goyo.vim'
   Plug '907th/vim-auto-save'
+  Plug 'dcharbon/vim-flatbuffers' " Syntax hl for flatbuffers
   " themes
   "Plug 'NLKNguyen/papercolor-theme'
   Plug 'arcticicestudio/nord-vim', {'branch': 'main'}
@@ -179,9 +180,12 @@ set clipboard=unnamedplus " use the x11 clipboard
   "colorscheme gotham256
 "endif
 set background=dark
-colorscheme PaperColor
-"colorscheme materialbox
-"colorscheme nord
+if has("gui_running")
+  colorscheme nord
+else
+  "colorscheme PaperColor
+  colorscheme predawn
+endif
 "---
 "let g:airline_theme='nord'
 "let g:airline_theme='wombat'
