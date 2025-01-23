@@ -1,9 +1,9 @@
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-
 "------------------------------------------------------------------------------
 "--- BEG. Options
 "------------------------------------------------------------------------------
+
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
 set nocompatible
 
 set guioptions-=m " Remove menubar
@@ -28,11 +28,14 @@ endif
 
 if has("gui_running")
   "set guifont=Source\ Code\ Pro\ 11
-  set guifont=Monospace\ Regular\ 11
+  "set guifont=Monospace\ Regular\ 11
+  set guifont=Courier\ Prime\ 11
 endif
 
 " prevent comma in text from auto-indenting
 autocmd FileType text setlocal nocindent
+
+let g:vim_json_syntax_conceal = 0
 
 "------------------------------------------------------------------------------
 "--- END. Options
@@ -48,7 +51,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'kien/ctrlp.vim'           " Fuzzy file/buffer search
   Plug 'airblade/vim-gitgutter'   " Git changes in the gutter
   Plug 'scrooloose/nerdtree'      " Side file tree
-  Plug 'majutsushi/tagbar'        " Tagbar
+  "Plug 'majutsushi/tagbar'        " Tagbar
+  Plug 'preservim/tagbar'
+  "Plug 'liuchengxu/vista.vim'
   Plug 'mileszs/ack.vim'          " Search entire repo
   Plug 'scrooloose/nerdcommenter' " Comment and Uncomment
   Plug 'tpope/vim-fugitive'       " For things like Gblame
@@ -57,13 +62,16 @@ call plug#begin('~/.vim/plugged')
   Plug 'honza/vim-snippets'       " Snippets Collection
   Plug 'ervandew/supertab'
   Plug 'posva/vim-vue'
-  Plug 'junegunn/goyo.vim'
-  Plug '907th/vim-auto-save'
   Plug 'dcharbon/vim-flatbuffers' " Syntax hl for flatbuffers
+  Plug 'ziglang/zig.vim'
+  "Plug 'junegunn/goyo.vim'
+  "Plug 'sheerun/vim-polyglot'    "Annoying
+  "Plug '907th/vim-auto-save'     " Defective
   " themes
-  "Plug 'NLKNguyen/papercolor-theme'
+  Plug 'NLKNguyen/papercolor-theme'
   Plug 'arcticicestudio/nord-vim', {'branch': 'main'}
   "Plug 'dense-analysis/ale'
+  "Plug 'psf/black', { 'branch': 'stable' } " Python linting
 call plug#end()
 "------------------------------------------------------------------------------
 "--- END. Plugins
@@ -108,10 +116,10 @@ else
   set directory=~/.vim/swpdir//
   set undofile
   set undodir=~/.vim/undodir//
-  set undolevels=1000
-  set undoreload=10000
 endif
 
+set undolevels=10000
+set undoreload=10000
 set history=50		" keep 50 lines of command line history
 set ruler		      " show the cursor position all the time
 set showcmd		    " display incomplete commands
@@ -125,7 +133,7 @@ if has("autocmd")
   " 'cindent' is on in C files, etc.
   " Also load indent files, to automatically do language-dependent indenting.
   filetype plugin indent on
-  set cindent!
+  "set cindent!
 
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
@@ -154,12 +162,12 @@ endif " has("autocmd")a
 set autoindent
 
 " write whenever focus is lost
-au FocusLost * silent! :wa
+" au FocusLost * silent! :wa
 
 " autosave when changing buffers
-"set autowriteall
-let g:auto_save = 1  " enable AutoSave on Vim startup
-let g:auto_save_write_all_buffers = 1  " write all open buffers as if you would use :wa
+set autowriteall
+"let g:auto_save = 1  " enable AutoSave on Vim startup
+"let g:auto_save_write_all_buffers = 1  " write all open buffers as if you would use :wa
 
 au BufNewFile,BufRead *.ejs set filetype=html
 
@@ -209,7 +217,7 @@ let g:gitgutter_eager = 0
 "let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:snips_author = 'SFR'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|out)$',
+  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|out|docs|dlcache)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
  
@@ -233,6 +241,9 @@ filetype plugin on
 autocmd BufNewFile,BufRead *.sh.ejs set syntax=sh
 
 let NERDTreeShowHidden=1
+" Workaround for NerdTree + Vim9 compatibility issue
+" https://github.com/preservim/nerdtree/issues/1321
+let g:NERDTreeMinimalMenu=1
 
 highlight ColorColumn ctermbg=235 guibg=#232323
 "let &colorcolumn=join(range(81,999),",")
@@ -247,6 +258,7 @@ set viminfo+=n~/.vim/viminfo
 set conceallevel=0
 
 set belloff=all
+
 
 " { fix-airline {
 " https://vi.stackexchange.com/questions/3359/how-do-i-fix-the-status-bar-symbols-in-the-airline-plugin
@@ -281,3 +293,5 @@ set belloff=all
 "let g:airline_symbols.readonly = ''
 "let g:airline_symbols.linenr = ''
 " } fix-airline }
+
+

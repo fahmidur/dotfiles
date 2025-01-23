@@ -46,11 +46,11 @@ class GitTrackedRepo
 
   def git_tracked?(path)
     path = Pathname.new(path)
-    unless Dir.exists?(path)
+    unless Dir.exist?(path)
       return false
     end
     git_dir = path + '.git'
-    unless Dir.exists?(git_dir)
+    unless Dir.exist?(git_dir)
       return false
     end
     return true
@@ -109,7 +109,7 @@ class FileTree
   end
 
   def meta_read!
-    unless File.exists?(@meta_path)
+    unless File.exist?(@meta_path)
       return {}
     end
     body = IO.read(@meta_path)
@@ -126,7 +126,7 @@ class FileTree
   def meta_write!
     body = JSON.pretty_generate(@meta_data)
     meta_path_dirname = File.dirname(@meta_path)
-    unless Dir.exists?(meta_path_dirname)
+    unless Dir.exist?(meta_path_dirname)
       FileUtils.mkdir_p(meta_path_dirname)
     end
     IO.write(@meta_path, body)
@@ -144,7 +144,7 @@ class FileTree
     linked.each do |source, data|
       target = data['target']
       print "#{target} "
-      if File.exists?(target)
+      if File.exist?(target)
         puts "--- OK. Not Broken"
       else
         puts "--- LINK BROKEN. Removing"
@@ -178,7 +178,7 @@ class FileTree
         next
       end
 
-      if File.exists?(npath)
+      if File.exist?(npath)
         npath_lstat = File.lstat(npath)
         if npath_lstat.symlink? && (npath_target = File.readlink(npath)) && (npath_target == path)
           puts " --- SKIPPED. Already Symlinked"
@@ -222,7 +222,7 @@ class FileTree
   end
 
   def backup(path)
-    return unless File.exists?(path)
+    return unless File.exist?(path)
     bpath = path + ".bck_#{Time.now.to_i}"
     FileUtils.mv(path, bpath)
   end
