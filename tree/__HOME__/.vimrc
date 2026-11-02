@@ -173,8 +173,9 @@ au BufNewFile,BufRead *.ejs set filetype=html
 
 "set cursorline
 set expandtab " use spaces instead of tabs
-set tabstop=2
 set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set nu
 set clipboard=unnamedplus " use the x11 clipboard
 
