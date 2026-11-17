@@ -29,7 +29,7 @@ endif
 if has("gui_running")
   "set guifont=Source\ Code\ Pro\ 11
   "set guifont=Monospace\ Regular\ 11
-  set guifont=Courier\ Prime\ 11
+  "set guifont=Courier\ Prime\ 11
 endif
 
 " prevent comma in text from auto-indenting
@@ -80,7 +80,7 @@ call plug#end()
 "------------------------------------------------------------------------------
 "--- BEG. Key Mappings
 "------------------------------------------------------------------------------
-let mapleader=","
+let mapleader=" "
 
 nmap <silent> <c-n> :NERDTreeToggle<CR>
 nmap <silent> <Leader>n :NERDTreeFind<CR>
@@ -179,6 +179,8 @@ set tabstop=2
 set nu
 set clipboard=unnamedplus " use the x11 clipboard
 
+autocmd FileType markdown setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
 " highlight Normal ctermfg=white ctermbg=black
 "colorscheme predawn
 "colorscheme dracula
@@ -189,12 +191,13 @@ set clipboard=unnamedplus " use the x11 clipboard
   "colorscheme gotham256
 "endif
 set background=dark
-if has("gui_running")
-  colorscheme nord
-else
-  "colorscheme PaperColor
-  colorscheme predawn
-endif
+colorscheme predawn
+"if has("gui_running")
+"  colorscheme nord
+"else
+"  "colorscheme PaperColor
+"  colorscheme predawn
+"endif
 "---
 "let g:airline_theme='nord'
 "let g:airline_theme='wombat'
