@@ -87,6 +87,8 @@ nmap <silent> <Leader>n :NERDTreeFind<CR>
 nmap <silent> <Leader>m :only<CR>
 nmap <silent> <Leader>r :TagbarToggle<CR> <c-w>w
 nmap <silent> <Leader>b :CtrlPBuffer<CR>
+nmap <silent> <Leader>f :CtrlP<CR>
+nmap <silent> <Leader><Space> :CtrlP<CR>
 
 " SFR: Hack to allow saving when not started in sudo
 noremap <Leader>W :w !sudo tee % > /dev/null
@@ -95,7 +97,7 @@ noremap <Leader>W :w !sudo tee % > /dev/null
 " SFR: I love this one
 noremap ; :
 
-noremap <Leader>f :Ack 
+"noremap <Leader>f :Ack 
 
 "noremap <Leader>q :q<CR>
 noremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
